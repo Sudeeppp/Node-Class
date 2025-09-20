@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- linking the css file with server url path -->
+    <link rel="stylesheet" href="/Home.css">
+</head>
+<body>
+    <h1>Welcome to the home page</h1>
+    <marquee behavior="" direction="right">sudeep</marquee>
+    <a href="/about">About</a>
+    <a href="/login"> Login</a>
+
+    <button id="get">Get Data</button>
+    <button id="post">Post Data</button>
+
+    <script>
+        const getBtn = document.getElementById('get');
+        const postBtn = document.getElementById('post');
+
+        getBtn.addEventListener('click', () => {
+            // get data from server
+            fetch("/getData")
+                .then(res => res.json())
+                .then(data =>console.log(data))
+                .catch(err =>console.log(err))
+        });
+
+        postBtn.addEventListener("click", () => {
+            // send data to the server
+            let student = { name: "John", age: 25, city: "New York" };
+            fetch('/postData', {
+                method: 'POST', // any http methodes
+                headers: {"Content-Type": "application/json"}, // additional information
+                body:JSON.stringify(student)  //payload of the fetch(string)
+            }).then(res => res.json())
+            .then(data => console.log(data))
+            .catch(err => console.log(err))
+        });
+    </script>
+</body>
+</html>
